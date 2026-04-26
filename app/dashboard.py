@@ -68,7 +68,7 @@ h2, h3 {
 # - anomaly: binary flag (normal / abnormal)
 # - alert: clinical decision (NORMAL / WARNING / CRITICAL)
 
-df = pd.read_csv("outputs/window_level_results.csv")
+df = pd.read_csv("../outputs/window_level_results.csv")
 
 # =========================================================
 # SECURITY LAYER DASHBOARD (NEW SECTION)
@@ -95,7 +95,7 @@ import streamlit as st
 # - status (ATTACK / SAFE)
 # =========================================================
 
-security_df = pd.read_csv("outputs/security_log.csv")
+security_df = pd.read_csv("../outputs/security_log.csv")
 
 
 # =========================================================
@@ -106,7 +106,8 @@ st.subheader("🛡️ Security Monitoring Layer")
 
 import numpy as np
 
-X_new = np.load("data/security/X.npy")[:100]
+data = np.load("../Data/security/security_dataset.npz")
+X_new = data["X"][:100]
 total_samples = len(X_new)
 
 # Count how many attacks were detected
