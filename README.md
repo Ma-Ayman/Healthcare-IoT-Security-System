@@ -1,3 +1,28 @@
+Dataset used:
+PhysioNet Challenge 2012 – ICU Mortality Prediction Dataset
+
+Due to size constraints, the dataset is not included in this repository.
+It can be accessed from PhysioNet official website.
+
+https://physionet.org/content/challenge-2012/1.0.0/
+Predicting Mortality of ICU Patients: The PhysioNet/Computing in Cardiology Challenge 2012
+
+
+
+Security Dataset:
+UNB CIC IoT Dataset (Kaggle)
+
+This dataset contains real IoT network traffic collected from multiple IoT devices under normal and attack scenarios.
+It includes different types of cyber attacks such as DDoS, DoS, Brute Force, Reconnaissance, and Mirai botnet.
+
+Link:
+https://www.kaggle.com/datasets/madhavmalhotra/unb-cic-iot-dataset
+
+Note: The dataset is not included in the repository due to its large size.
+
+
+
+
 Data Loading Module (data_loader.py)
 Purpose
 This module is responsible for loading raw patient data from multiple files and combining them into a single unified dataset for further processing in the healthcare IoT pipeline.
