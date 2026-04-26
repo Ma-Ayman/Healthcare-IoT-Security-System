@@ -4,6 +4,9 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
+os.makedirs("figures", exist_ok=True)
 
 
 
@@ -96,7 +99,8 @@ import streamlit as st
 # =========================================================
 
 security_df = pd.read_csv("../outputs/security_log.csv")
-
+security_df["attack_type"].value_counts().plot(kind="bar")
+plt.savefig("figures/security_plot.png", dpi=300, bbox_inches="tight")
 
 # =========================================================
 # SECURITY OVERVIEW METRICS
@@ -294,6 +298,7 @@ ax.grid(alpha=0.3)
 # Render plot inside dashboard
 fig.patch.set_facecolor('#1C2541')
 ax.set_facecolor('#1C2541')
+fig.savefig("figures/risk_plot.png", dpi=300, bbox_inches="tight")
 st.pyplot(fig)
 
 
@@ -346,10 +351,22 @@ st.subheader("🏥 ICU System Status Overview")
 # Shows distribution of all alerts across ICU patients
 # Helps clinicians understand overall ICU load and severity
 
+
+fig2, ax2 = plt.subplots()
+
 alert_counts = df["alert"].value_counts()
+alert_counts.plot(kind="bar", ax=ax2)
 
-st.bar_chart(alert_counts)
+ax2.set_title("Alert Distribution")
+ax2.set_xlabel("Alert Type")
+ax2.set_ylabel("Count")
 
+
+st.pyplot(fig2)
+
+
+fig2.savefig("figures/alert_distribution.png", dpi=300, bbox_inches="tight")
+plt.close(fig2)
 st.markdown("""
 <div style='font-size:18px; line-height:1.6'>
 Displays distribution of alert types across all ICU patients.
@@ -380,3 +397,34 @@ Patients are ranked based on their average risk score to prioritize critical cas
 </div>
 """, unsafe_allow_html=True)
 
+
+import seaborn as sns
+
+# =========================
+# HIGH-RISK PATIENT HEATMAP
+# =========================
+
+fig3, ax3 = plt.subplots(figsize=(8, 5))
+
+# reshape data for heatmap
+heatmap_data = top_risk_patients.to_frame().T
+
+sns.heatmap(
+    heatmap_data,
+    annot=True,
+    cmap="Reds",
+    cbar=True,
+    ax=ax3
+)
+
+ax3.set_title("High-Risk Patient Ranking")
+ax3.set_xlabel("Patient ID")
+ax3.set_ylabel("Risk Score")
+
+# =========================
+# SAVE IMAGE (IMPORTANT)
+# =========================
+fig3.savefig("figures/high_risk_patients.png", dpi=300, bbox_inches="tight")
+
+st.pyplot(fig3)
+plt.close(fig3)
